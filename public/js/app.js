@@ -12344,7 +12344,6 @@ exports.default = {
       });
       this.activeColor = this.randomColor();
       document.body.style.backgroundColor = this.activeColor;
-      console.log(this.twitterUrl);
       setTimeout(function () {
         self.getQuote();
       }, 30000);
