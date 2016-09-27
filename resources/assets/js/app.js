@@ -6,7 +6,8 @@ import App from './components/App.vue'
 // Install some plugins
 Vue.use(VueResource)
 
-let vm = new Vue({
+/* eslint-disable no-new */
+new Vue({
   el: 'body',
   components: { App }
 })

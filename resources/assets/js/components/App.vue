@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <h1>App Component</h1>
+    <quote></quote>
   </div>
 </template>
 
 <script>
-  export default {}
+  import Quote from './Quote.vue'
+  export default {
+    components: { Quote }
+  }
 </script>
-
-<style lang="css">
-</style>

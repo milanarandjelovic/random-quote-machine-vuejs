@@ -12270,37 +12270,101 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Install some plugins
 _vue2.default.use(_vueResource2.default);
 
-var vm = new _vue2.default({
+new _vue2.default({
   el: 'body',
   components: { App: _App2.default }
 });
 
 },{"./components/App.vue":7,"vue":4,"vue-resource":3}],7:[function(require,module,exports){
-var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("\n")
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {};
+
+var _Quote = require('./Quote.vue');
+
+var _Quote2 = _interopRequireDefault(_Quote);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  components: { Quote: _Quote2.default }
+};
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div id=\"app\">\n  <h1>App Component</h1>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div id=\"app\">\n  <quote></quote>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-73ef5798", module.exports)
+  } else {
+    hotAPI.update("_v-73ef5798", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"./Quote.vue":8,"vue":4,"vue-hot-reload-api":2}],8:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("/* line 2, stdin */\n.Quote {\n  background-color: #fff;\n  margin-top: 15%;\n  border-radius: 5px;\n  padding-top: 30px;\n  padding-bottom: 30px; }\n  /* line 8, stdin */\n  .Quote .Quote__box {\n    width: 450px;\n    padding-left: 60px; }\n  /* line 12, stdin */\n  .Quote .Quote__text {\n    text-align: center; }\n    /* line 14, stdin */\n    .Quote .Quote__text i.fa-quote-left {\n      margin-right: 6px;\n      font-size: 30px; }\n  /* line 19, stdin */\n  .Quote .Quote__author {\n    font-style: italic; }\n  /* line 22, stdin */\n  .Quote .Quote__buttons {\n    margin-top: 40px; }\n")
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      quote: {
+        text: '',
+        author: ''
+      },
+      colors: ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#fb6964', '#342224', '#472e32', '#bdbb99', '#77b1a9', '#73a857'],
+      activeColor: ''
+    };
+  },
+  ready: function ready() {
+    this.getQuote();
+  },
+
+
+  methods: {
+    getQuote: function getQuote() {
+      var _this = this;
+
+      this.$http.get('http://quotes.stormconsultancy.co.uk/random.json').then(function (res) {
+        _this.quote.author = res.body.author;
+        _this.quote.text = res.body.quote;
+      }).catch(function (err) {
+        console.log(err);
+      });
+      this.activeColor = this.randomColor();
+      document.body.style.backgroundColor = this.activeColor;
+    },
+    newQuote: function newQuote() {
+      this.getQuote();
+    },
+    randomColor: function randomColor() {
+      var colorNumber = Math.floor(Math.random() * this.colors.length);
+      return this.colors[colorNumber];
+    }
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"Quote col-md-6 col-md-offset-3\">\n\n  <div class=\"Quote__box\">\n    <div class=\"Quote__text\">\n      <i class=\"fa fa-quote-left\" aria-hidden=\"true\"></i>\n      <span>{{ quote.text }}</span>\n    </div>\n\n    <div class=\"Quote__author pull-right\">\n      <span class=\"author\">-  {{ quote.author }}</span>\n    </div>\n\n    <div class=\"Quote__buttons\">\n      <a id=\"twitter-quote\" class=\"pull-left btn btn-primary\" v-bind:style=\"{ backgroundColor:  activeColor, borderColor: activeColor }\">\n        <i class=\"fa fa-twitter\"></i>\n      </a>\n      <button type=\"button\" id=\"new-quote\" class=\"btn btn-primary pull-right\" @click.prevent=\"newQuote\" v-bind:style=\"{ backgroundColor:  activeColor, borderColor: activeColor }\">New Quote\n      </button>\n    </div>\n\n  </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["\n"] = false
+    __vueify_insert__.cache["/* line 2, stdin */\n.Quote {\n  background-color: #fff;\n  margin-top: 15%;\n  border-radius: 5px;\n  padding-top: 30px;\n  padding-bottom: 30px; }\n  /* line 8, stdin */\n  .Quote .Quote__box {\n    width: 450px;\n    padding-left: 60px; }\n  /* line 12, stdin */\n  .Quote .Quote__text {\n    text-align: center; }\n    /* line 14, stdin */\n    .Quote .Quote__text i.fa-quote-left {\n      margin-right: 6px;\n      font-size: 30px; }\n  /* line 19, stdin */\n  .Quote .Quote__author {\n    font-style: italic; }\n  /* line 22, stdin */\n  .Quote .Quote__buttons {\n    margin-top: 40px; }\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-73ef5798", module.exports)
+    hotAPI.createRecord("_v-1b233f62", module.exports)
   } else {
-    hotAPI.update("_v-73ef5798", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-1b233f62", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":4,"vue-hot-reload-api":2,"vueify/lib/insert-css":5}]},{},[6]);
