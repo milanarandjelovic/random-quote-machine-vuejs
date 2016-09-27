@@ -2,29 +2,45 @@
   <div class="Quote col-md-6 col-md-offset-3">
 
     <div class="Quote__box">
-      <div class="Quote__text">
-        <i class="fa fa-quote-left" aria-hidden="true"></i>
-        <span>{{ quote.text }}</span>
+      <div
+        class="Quote__text"
+      >
+        <i
+          :style="{ color:  activeColor }"
+          class="fa fa-quote-left" aria-hidden="true"
+        >
+        </i>
+        <span
+          :style="{ color:  activeColor }"
+        >
+          {{ quote.text }}
+        </span>
       </div>
 
       <div class="Quote__author pull-right">
-        <span class="author">-  {{ quote.author }}</span>
+        <span
+          :style="{ color:  activeColor }"
+          class="author"
+        >
+          -  {{ quote.author }}
+        </span>
       </div>
 
       <div class="Quote__buttons">
         <a
-                id="twitter-quote"
-                class="pull-left btn btn-primary"
-                v-bind:style="{ backgroundColor:  activeColor, borderColor: activeColor }"
+          :href="twitterUrl"
+          id="twitter-quote"
+          class="pull-left btn btn-primary"
+          :style="{ backgroundColor:  activeColor, borderColor: activeColor }"
         >
           <i class="fa fa-twitter"></i>
         </a>
         <button
-                type="button"
-                id="new-quote"
-                class="btn btn-primary pull-right"
-                @click.prevent="newQuote"
-                v-bind:style="{ backgroundColor:  activeColor, borderColor: activeColor }"
+          type="button"
+          id="new-quote"
+          class="btn btn-primary pull-right"
+          @click.prevent="newQuote"
+          :style="{ backgroundColor:  activeColor, borderColor: activeColor }"
         >New Quote
         </button>
       </div>
@@ -42,7 +58,8 @@
           author: ''
         },
         colors: ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#fb6964', '#342224', '#472e32', '#bdbb99', '#77b1a9', '#73a857'],
-        activeColor: ''
+        activeColor: '',
+        twitterUrl: ''
       }
     },
 
@@ -52,14 +69,18 @@
 
     methods: {
       getQuote () {
+        var self = this
         this.$http.get('http://quotes.stormconsultancy.co.uk/random.json').then(res => {
           this.quote.author = res.body.author
           this.quote.text = res.body.quote
+          this.twitterUrl = 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + this.quote.text +  ' ' + this.quote.author
         }).catch(err => {
           console.log(err)
         })
         this.activeColor = this.randomColor()
         document.body.style.backgroundColor = this.activeColor
+        console.log(this.twitterUrl)
+        setTimeout(function () { self.getQuote() }, 30000)
       },
 
       newQuote () {
@@ -88,6 +109,7 @@
     }
     .Quote__text {
       text-align: center;
+      font-size: 30px;
       i.fa-quote-left {
         margin-right: 6px;
         font-size: 30px;
@@ -95,6 +117,7 @@
     }
     .Quote__author {
       font-style: italic;
+      margin-top: 10px;
     }
     .Quote__buttons {
       margin-top: 40px;

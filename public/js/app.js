@@ -12307,7 +12307,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 },{"./Quote.vue":8,"vue":4,"vue-hot-reload-api":2}],8:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("/* line 2, stdin */\n.Quote {\n  background-color: #fff;\n  margin-top: 15%;\n  border-radius: 5px;\n  padding-top: 30px;\n  padding-bottom: 30px; }\n  /* line 8, stdin */\n  .Quote .Quote__box {\n    width: 450px;\n    padding-left: 60px; }\n  /* line 12, stdin */\n  .Quote .Quote__text {\n    text-align: center; }\n    /* line 14, stdin */\n    .Quote .Quote__text i.fa-quote-left {\n      margin-right: 6px;\n      font-size: 30px; }\n  /* line 19, stdin */\n  .Quote .Quote__author {\n    font-style: italic; }\n  /* line 22, stdin */\n  .Quote .Quote__buttons {\n    margin-top: 40px; }\n")
+var __vueify_style__ = __vueify_insert__.insert("/* line 2, stdin */\n.Quote {\n  background-color: #fff;\n  margin-top: 15%;\n  border-radius: 5px;\n  padding-top: 30px;\n  padding-bottom: 30px; }\n  /* line 8, stdin */\n  .Quote .Quote__box {\n    width: 450px;\n    padding-left: 60px; }\n  /* line 12, stdin */\n  .Quote .Quote__text {\n    text-align: center;\n    font-size: 30px; }\n    /* line 15, stdin */\n    .Quote .Quote__text i.fa-quote-left {\n      margin-right: 6px;\n      font-size: 30px; }\n  /* line 20, stdin */\n  .Quote .Quote__author {\n    font-style: italic;\n    margin-top: 10px; }\n  /* line 24, stdin */\n  .Quote .Quote__buttons {\n    margin-top: 40px; }\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12321,7 +12321,8 @@ exports.default = {
         author: ''
       },
       colors: ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#fb6964', '#342224', '#472e32', '#bdbb99', '#77b1a9', '#73a857'],
-      activeColor: ''
+      activeColor: '',
+      twitterUrl: ''
     };
   },
   ready: function ready() {
@@ -12333,14 +12334,20 @@ exports.default = {
     getQuote: function getQuote() {
       var _this = this;
 
+      var self = this;
       this.$http.get('http://quotes.stormconsultancy.co.uk/random.json').then(function (res) {
         _this.quote.author = res.body.author;
         _this.quote.text = res.body.quote;
+        _this.twitterUrl = 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + _this.quote.text + ' ' + _this.quote.author;
       }).catch(function (err) {
         console.log(err);
       });
       this.activeColor = this.randomColor();
       document.body.style.backgroundColor = this.activeColor;
+      console.log(this.twitterUrl);
+      setTimeout(function () {
+        self.getQuote();
+      }, 30000);
     },
     newQuote: function newQuote() {
       this.getQuote();
@@ -12352,13 +12359,13 @@ exports.default = {
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"Quote col-md-6 col-md-offset-3\">\n\n  <div class=\"Quote__box\">\n    <div class=\"Quote__text\">\n      <i class=\"fa fa-quote-left\" aria-hidden=\"true\"></i>\n      <span>{{ quote.text }}</span>\n    </div>\n\n    <div class=\"Quote__author pull-right\">\n      <span class=\"author\">-  {{ quote.author }}</span>\n    </div>\n\n    <div class=\"Quote__buttons\">\n      <a id=\"twitter-quote\" class=\"pull-left btn btn-primary\" v-bind:style=\"{ backgroundColor:  activeColor, borderColor: activeColor }\">\n        <i class=\"fa fa-twitter\"></i>\n      </a>\n      <button type=\"button\" id=\"new-quote\" class=\"btn btn-primary pull-right\" @click.prevent=\"newQuote\" v-bind:style=\"{ backgroundColor:  activeColor, borderColor: activeColor }\">New Quote\n      </button>\n    </div>\n\n  </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"Quote col-md-6 col-md-offset-3\">\n\n  <div class=\"Quote__box\">\n    <div class=\"Quote__text\">\n      <i :style=\"{ color:  activeColor }\" class=\"fa fa-quote-left\" aria-hidden=\"true\">\n      </i>\n      <span :style=\"{ color:  activeColor }\">\n        {{ quote.text }}\n      </span>\n    </div>\n\n    <div class=\"Quote__author pull-right\">\n      <span :style=\"{ color:  activeColor }\" class=\"author\">\n        -  {{ quote.author }}\n      </span>\n    </div>\n\n    <div class=\"Quote__buttons\">\n      <a :href=\"twitterUrl\" id=\"twitter-quote\" class=\"pull-left btn btn-primary\" :style=\"{ backgroundColor:  activeColor, borderColor: activeColor }\">\n        <i class=\"fa fa-twitter\"></i>\n      </a>\n      <button type=\"button\" id=\"new-quote\" class=\"btn btn-primary pull-right\" @click.prevent=\"newQuote\" :style=\"{ backgroundColor:  activeColor, borderColor: activeColor }\">New Quote\n      </button>\n    </div>\n\n  </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["/* line 2, stdin */\n.Quote {\n  background-color: #fff;\n  margin-top: 15%;\n  border-radius: 5px;\n  padding-top: 30px;\n  padding-bottom: 30px; }\n  /* line 8, stdin */\n  .Quote .Quote__box {\n    width: 450px;\n    padding-left: 60px; }\n  /* line 12, stdin */\n  .Quote .Quote__text {\n    text-align: center; }\n    /* line 14, stdin */\n    .Quote .Quote__text i.fa-quote-left {\n      margin-right: 6px;\n      font-size: 30px; }\n  /* line 19, stdin */\n  .Quote .Quote__author {\n    font-style: italic; }\n  /* line 22, stdin */\n  .Quote .Quote__buttons {\n    margin-top: 40px; }\n"] = false
+    __vueify_insert__.cache["/* line 2, stdin */\n.Quote {\n  background-color: #fff;\n  margin-top: 15%;\n  border-radius: 5px;\n  padding-top: 30px;\n  padding-bottom: 30px; }\n  /* line 8, stdin */\n  .Quote .Quote__box {\n    width: 450px;\n    padding-left: 60px; }\n  /* line 12, stdin */\n  .Quote .Quote__text {\n    text-align: center;\n    font-size: 30px; }\n    /* line 15, stdin */\n    .Quote .Quote__text i.fa-quote-left {\n      margin-right: 6px;\n      font-size: 30px; }\n  /* line 20, stdin */\n  .Quote .Quote__author {\n    font-style: italic;\n    margin-top: 10px; }\n  /* line 24, stdin */\n  .Quote .Quote__buttons {\n    margin-top: 40px; }\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
