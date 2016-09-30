@@ -30,6 +30,7 @@
         <a
           :href="twitterUrl"
           id="twitter-quote"
+          target="_blank"
           class="pull-left btn btn-primary"
           :style="{ backgroundColor:  activeColor, borderColor: activeColor }"
         >
